@@ -9,6 +9,14 @@ export class BookingCard extends HTMLElement {
   private statusText = document.createElement('p')
   private button = document.createElement('button')
 
+  static get observedAttributes() {
+    return ['compact']
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
   constructor() {
     super()
     const style = document.createElement('style')
@@ -47,10 +55,13 @@ export class BookingCard extends HTMLElement {
       this.button.disabled = true
       return
     }
+
+    const compact = this.hasAttribute('compact')
+
     // А2: имя, участники, источник, статус и кнопка для обоих состояний.
     this.nameText.textContent = booking.name
-    this.seatsText.textContent = `Участников: ${booking.seats}`
-    this.sourceText.textContent = `Источник: ${booking.source}`
+    this.seatsText.textContent = compact ? `${booking.seats} чел.` : `Участников: ${booking.seats}`
+    this.sourceText.textContent = compact ? '' : `Источник: ${booking.source}`
 
     if (booking.status === 'new') {
       this.statusText.textContent = 'Новая заявка'
