@@ -82,6 +82,7 @@ lists.addEventListener('booking-status-request', (event) => {
   received += 1
   events.textContent = String(received)
   // А5: примените запрос готовой функцией setBookingStatus.
+  setBookingStatus(id, nextStatus)
 })
 form.addEventListener('submit', (event) => {
   event.preventDefault()
